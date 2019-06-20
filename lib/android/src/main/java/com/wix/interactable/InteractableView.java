@@ -107,11 +107,16 @@ public class InteractableView extends ViewGroup implements PhysicsAnimator.Physi
 
     @Override
     public void onAnimationFrame() {
-        PointF currentPosition = getCurrentPosition();
-        if(reportOnAnimatedEvents) {
-            listener.onAnimatedEvent(currentPosition.x, currentPosition.y);
+        try {
+            PointF currentPosition = getCurrentPosition();
+            if(reportOnAnimatedEvents) {
+                listener.onAnimatedEvent(currentPosition.x, currentPosition.y);
+            }
+            reportAlertEvent(currentPosition);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        reportAlertEvent(currentPosition);
+        
     }
 
     private void reportAlertEvent(PointF position) {
